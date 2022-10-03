@@ -1,0 +1,12 @@
+1. if app did not work remember redux core is not installed @reduxjs/toolkit is.
+
+# heirarcy
+ -main window
+  1. editor
+  2. previewer
+
+# state = input marked language
+
+# //deprecated data = this application has no additional data other than the state data that is user input, this input/state itself is manulated and computed and render as final output.
+
+#data = initial data i.e is a marked text displayed/rendered as an sample output
