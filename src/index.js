@@ -9,23 +9,31 @@ import { marked } from "marked";
 //import default markup
 import { defaultMarkup } from "./defaultMarkup.js"
 
-//React App
-//render App
-const output = ReactDOM.createRoot(document.getElementById("page"));
-output.render(<App />);
+//import @reduxjs/toolkit
+import { configureStore } from "@reduxjs/toolkit"
+import { createSlice } from "@reduxjs/toolkit"
+
+//import react-redux
+import { Provider } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
+
+//-- React App --
 
 function App() {
-  let initialState = defaultMarkup();
-  const [markdown, setMarkdown] = React.useState(initialState);
+  const mapState = useSelector(state => state.markup.markupStr);
+  const mapDispatch = useDispatch();
 
-  function handleChange(newMarkdown) {
-    setMarkdown(newMarkdown);
+  // useState hook not in use anymore because redux had took over the state handling.
+  //const [markdown, setMarkdown] = React.useState(initialState);
+
+  function handleChange(newMarkup) {
+    mapDispatch(updateMarkup(newMarkup));
   }
 
   return (
     <div>
-      <Editor text={markdown} updateText={handleChange} />
-      <Previewer markdownText={markdown} />
+      <Editor text={mapState} updateText={handleChange} />
+      <Previewer markupText={mapState} />
     </div>
   );
 }
@@ -36,8 +44,8 @@ function Editor({text, updateText}) {
   );
 }
 
-function Previewer({markdownText}) {
-  let parsedHtml = marked.parse(markdownText);
+function Previewer({markupText}) {
+  let parsedHtml = marked.parse(markupText);  
 
   React.useEffect(() => {
     document.getElementById("preview").innerHTML = parsedHtml;
@@ -49,6 +57,38 @@ function Previewer({markdownText}) {
   );
 }
 
+//-- redux --
+const markupSlice = createSlice({
+  name: 'markup',
+  initialState: {
+    markupStr: defaultMarkup()
+  },
+  reducers: {
+    updateMarkup: (state, action) => {
+      state.markupStr = action.payload;
+    }
+  }
+});
+
+//Generate action and reducer function
+const { updateMarkup } = markupSlice.actions;
+const markupReducer = markupSlice.reducer;
+
+//create store after reducer id created
+const store = configureStore({
+  reducer: {
+    markup: markupReducer
+  }
+});
+
+//-- react-redux --
+//provide react access to redux store and action creator and render App 
+const output = ReactDOM.createRoot(document.getElementById("page"));
+output.render(
+  <Provider store={store}>
+    <App />
+  </Provider>
+);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
