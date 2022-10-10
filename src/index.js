@@ -17,8 +17,18 @@ import { createSlice } from "@reduxjs/toolkit"
 import { Provider } from "react-redux"
 import { useSelector, useDispatch } from "react-redux"
 
-//-- React App --
+//link jquery.js
+import "./jquery.js"
+//import { showEditor, showPreviewer } from "./jquery.js" [DEPRECATED ALTERNATE METHOD]
 
+//link scss using npm install node-sass --save-dev
+import "./index.scss"
+
+//import bootstrap
+import "../node_modules/bootstrap/dist/css/bootstrap.css"
+
+//-- React App --
+//parent function component
 function App() {
   const mapState = useSelector(state => state.markup.markupStr);
   const mapDispatch = useDispatch();
@@ -31,21 +41,39 @@ function App() {
   }
 
   return (
-    <div>
+    <div id="background">
       <Editor text={mapState} updateText={handleChange} />
       <Previewer markupText={mapState} />
     </div>
   );
 }
 
+//child functional component-1
 function Editor({text, updateText}) {
   return (
-    <textarea id="editor" type="text" value={text} placeholder="Type Markdown here..." onChange={(e) => updateText(e.target.value)} ></textarea>
+    <div id="editor-window">
+      <nav className="title-bar">
+        <h1 className="window-title"><i className="fa-regular fa-pen-to-square"></i> Editor</h1>
+        <button id="editorbutton"></button>
+      </nav>
+      <textarea id="editor" type="text" value={text} placeholder="Type Markdown here..." onChange={(e) => updateText(e.target.value)} ></textarea>
+    </div>
   );
 }
 
+//child functional component-2
 function Previewer({markupText}) {
-  let parsedHtml = marked.parse(markupText);  
+  marked.setOptions({
+    renderer: new marked.Renderer(),
+    pedantic: false,
+    gfm: true,
+    breaks: true,
+    sanitize: false,
+    smartypants: false,
+    xhtml: false
+  });
+  
+  let parsedHtml = marked.parse(markupText);
 
   React.useEffect(() => {
     document.getElementById("preview").innerHTML = parsedHtml;
@@ -53,7 +81,13 @@ function Previewer({markupText}) {
   });
   
   return (
-    <div id="preview"></div>
+    <div id="previewer-window">
+      <nav className="title-bar">
+        <h1 className="window-title"><i className="fa-solid fa-print"></i> Previewer</h1>
+        <button id="previewerbutton"></button>
+      </nav>
+      <div id="preview"></div>
+    </div>
   );
 }
 

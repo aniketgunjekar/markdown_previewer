@@ -1,5 +1,3 @@
-1. if app did not work remember redux core is not installed @reduxjs/toolkit is.
-
 # heirarcy
  -main window
   1. editor
@@ -10,3 +8,13 @@
 # //deprecated data = this application has no additional data other than the state data that is user input, this input/state itself is manulated and computed and render as final output.
 
 #data = initial data i.e is a marked text displayed/rendered as an sample output
+
+#err. install sass
+#err. install jquery
+
+
+#css
+1. add css for .background[static]
+2. add css for .editprev [initial render css] [dynamic css]
+3. add css for .edit [onclick = editor-window] [dynamic css]
+4. add css for .prev [onclick = previewer-window] [dynamic css]

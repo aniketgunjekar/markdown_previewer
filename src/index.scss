@@ -1,0 +1,192 @@
+//global settings
+*{
+    padding: 0;
+    margin: 0;
+    color: white;
+    border-radius: 0.5rem;
+    //border: 1px solid rgb(240, 0, 0);
+    font-family: 'Roboto', sans-serif;
+    font-weight: 100;
+}
+
+//variables
+$bg-color: rgb(117, 89, 219);
+$winbg-color: rgb(104, 104, 104);
+$winborder-color: rgb(34, 33, 33);
+$text-color: rgb(214, 207, 199);
+$editor-heightmin: 15rem;
+$editor-height: 100vh;
+$win-shadow: 2px 2px 10px 2px $winborder-color;
+
+//.background css
+.background {
+    background-image: url("https://picsum.photos/2000/?blur=1");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    min-height: 100vh;
+}
+
+//initial editor
+.editprev_edit {
+    background-color: $winborder-color;
+    width: 500px;
+    margin: auto;
+    padding: 5px 7px 7px 7px;
+    min-height: $editor-heightmin;
+    display: flex;
+    flex-direction: column;
+    box-shadow: $win-shadow;
+    .title-bar {
+        height: 2rem;
+        width: 100%;
+        .window-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            margin-top: 0.5rem;
+        }
+        #editorbutton {
+            width: 2rem;
+            color: $winborder-color;
+            background-color: $text-color;
+            border-radius: 1rem;
+        }
+        #editorbutton:hover {
+            background-color: rgb(167, 167, 167);
+            transition: 0.3s;
+        }
+    }
+    #editor {
+        display: flex;
+        flex-grow: 1;
+        font-size: 0.9rem;
+        width: 486px;
+        margin-top: 5px;
+        padding: 0 0.5rem;
+        min-height: $editor-heightmin;
+        background-color: $winbg-color;
+    }
+}
+
+//initial previewer
+.editprev_prev {
+    background-color: $winborder-color;
+    width: 700px;
+    margin: 5px auto 5px auto;
+    padding: 5px 7px 7px 7px;
+    box-shadow: $win-shadow;
+    .title-bar {
+        height: 2rem;
+        width: 100%;
+        .window-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            margin-top: 0.5rem;
+        }
+        #previewerbutton {
+            width: 2rem;
+            color: $winborder-color;
+            background-color: $text-color;
+            border-radius: 1rem;
+        }
+        #previewerbutton:hover {
+            background-color: rgb(167, 167, 167);
+            transition: 0.3s;
+        }
+    }
+    #preview {
+        width: 686px;
+        margin-top: 5px;
+        padding: 0 0.5rem;
+        background-color: $winbg-color;
+        border: 0.1px solid $winbg-color;
+        font-size: 0.9rem;
+        h1 {
+            font-size: 1.8rem;
+        }
+        h2 {
+            font-size: 1.5rem;
+        }
+        h3 {
+            font-size: 1.2rem;
+        }
+        p {}
+        pre {
+            background-color: $winborder-color;
+            padding: 0.5rem;
+        }
+        code {
+            background-color: $winborder-color;
+            padding: 0.2rem;
+            border-radius: 0.3rem;
+        }
+        a {
+            color: orange;
+        }
+        table {
+            th {
+                border: 2px solid $winborder-color;
+                padding: 0.2rem;
+            }
+            td {
+                border: 2px solid $winborder-color;
+                padding: 0.2rem;
+            }
+        }
+        img {
+            width: 95%;
+        }
+    }
+}
+
+//only editor
+.edit_status {
+    background-color: $winborder-color;
+    width: 500px;
+    height: 100vh;
+    margin: auto;
+    padding: 5px 7px 7px 7px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    box-shadow: $win-shadow;
+    .title-bar {
+        height: 2rem;
+        width: 100%;
+        .window-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            margin-top: 0.5rem;
+        }
+        #editorbutton {
+            width: 2rem;
+            color: $winborder-color;
+            background-color: $text-color;
+            border-radius: 1rem;
+        }
+        #editorbutton:hover {
+            background-color: rgb(167, 167, 167);
+            transition: 0.3s;
+        }
+    }
+    #editor {
+        resize: none;
+        flex-grow: 1;
+        display: flex;
+        font-size: 0.9rem;
+        width: 486px;
+        height: 100%;
+        margin-top: 5px;
+        padding: 0 0.5rem;
+        background-color: $winbg-color;
+    }
+}
+
+//only previewer
+.prev_status {
+    //currently we used editprev_prev properties.
+}
+
+//make invisible
+.hideit {
+    display: none;
+}
